@@ -8,4 +8,4 @@ export const auth = jwt({ //eslint-disable-line
     userProperty: 'payload'
 });
 
-export const DATABASE = 'mongodb://localhost/podcast'; 
+export const DATABASE = 'mongodb://localhost/podcast';

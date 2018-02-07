@@ -3,7 +3,7 @@ import Response from './config/response';
 
 const PodacastController = {
     getAllPodcasts: (req, res) => {
-        const allPodcasts = PodcastService.getAllPodcasts()
+        const allPodcasts = PodcastService.getAllPodcasts();
         Response.json(res, 200, allPodcasts);
     },
     getPodcastById: (req, res) => {
@@ -11,6 +11,6 @@ const PodacastController = {
         const podcast = PodcastService.getById(id);
         Response.json(res, 200, podcast);
     }
-}
+};
 
 export default PodacastController;
