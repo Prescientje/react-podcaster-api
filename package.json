@@ -1,18 +1,37 @@
 {
   "name": "react-podcaster-api",
-  "version": "0.0.0",
-  "private": true,
+  "version": "1.0.0",
+  "private": false,
+  "license": "MIT",
   "scripts": {
-    "start": "node ./bin/www"
+    "start": "babel-node ./src/server.js",
+    "watch": "nodemon --exec babel-node -- ./src/server.js --type=http",
+    "lint": "eslint src/* test/*",
+    "autofix": "eslint --fix src/* test/*"
   },
   "dependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-loader": "^7.1.2",
+    "babel-plugin-transform-runtime": "^6.23.0",
+    "babel-preset-env": "^1.6.0",
     "body-parser": "~1.18.2",
     "cookie-parser": "~1.4.3",
     "cors": "^2.8.4",
-    "debug": "~2.6.9",
-    "express": "~4.15.5",
-    "jade": "~1.11.0",
+    "debug": "~3.1.0",
+    "express": "~4.16.2",
+    "express-jwt": "^5.3.0",
+    "helmet": "^3.9.0",
+    "jsonwebtoken": "^8.1.0",
+    "mongoose": "^5.0.3",
     "morgan": "~1.9.0",
-    "serve-favicon": "~2.4.5"
+    "serve-favicon": "~2.4.5",
+    "transform-runtime": "0.0.0"
+  },
+  "devDependencies": {
+    "babel-plugin-transform-object-rest-spread": "^6.26.0",
+    "eslint": "^4.16.0",
+    "eslint-config-airbnb-base": "^12.1.0",
+    "eslint-plugin-import": "^2.8.0",
+    "nodemon": "^1.14.12"
   }
 }
