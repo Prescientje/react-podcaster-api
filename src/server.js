@@ -64,7 +64,7 @@ function onListening(server) {
  * Creates an http server
  * @param {Number} httpPort - The port for http
  */
-function createHttpServer(httpPort = 3000) {
+function createHttpServer(httpPort = 3001) {
     const port = normalizePort(process.env.HTTP_PORT || httpPort);
     const server = http.createServer(app);
 
