@@ -1,5 +1,11 @@
+import PodcastRepository from '../../dal/repositories/podcast.repository';
+
 const PodcastService = {
-    getAllPodcasts: () => 'All Podcasts Here',
+    getAllPodcasts: () => new Promise((resolve, reject) => {
+        PodcastRepository.getAll().then((podcasts) => {
+            resolve(podcasts);
+        }).catch(reject);
+    }),
     getById: id => `Podcast ${id}`
 };
 
