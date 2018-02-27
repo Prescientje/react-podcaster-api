@@ -1,10 +1,14 @@
 import PodcastService from '../../business/services/podcast.service';
 import Response from './config/response';
 
-const PodacastController = {
+const PodcastController = {
     getAllPodcasts: (req, res) => {
-        const allPodcasts = PodcastService.getAllPodcasts();
-        Response.json(res, 200, allPodcasts);
+        PodcastService.getAllPodcasts().then((podcasts) => {
+            Response.json(res, 200, podcasts);
+        }).catch((err) => {
+            console.log(err);
+            Response.error(res, 404, err);
+        });
     },
     getPodcastById: (req, res) => {
         const { id } = req.params;
@@ -13,4 +17,4 @@ const PodacastController = {
     }
 };
 
-export default PodacastController;
+export default PodcastController;

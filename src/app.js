@@ -7,9 +7,11 @@ import helmet from 'helmet';
 
 import './dal/config/db';
 import './dal/models/user';
+import './dal/models/podcast';
 
 import auth from './api/routes/auth';
-import podcasts from './api/routes/podcast';
+import podcast from './api/routes/podcast';
+import podcasts from './api/routes/podcasts';
 
 const app = express();
 
@@ -21,6 +23,7 @@ app.use(cors());
 app.use(helmet());
 
 app.use('/api/auth', auth);
+app.use('/api/podcast', podcast);
 app.use('/api/podcasts', podcasts);
 
 // catch 404 and forward to error handler

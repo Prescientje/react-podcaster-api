@@ -1,0 +1,6 @@
+use podcast
+
+db.podcasts.insertOne( {title: "Podcast1", description: "The first podcast", dateUploaded: Date.now(), uploader: "jedwards" });
+db.podcasts.insertOne( {title: "Podcast2", description: "The second podcast", dateUploaded: Date.now(), uploader: "jedwards" });
+db.podcasts.insertOne( {title: "Podcast3", description: "The third podcast", dateUploaded: Date.now(), uploader: "pastorsj" });
+db.podcasts.insertOne( {title: "Podcast4", description: "The fourth podcast", dateUploaded: Date.now(), uploader: "pastorsj" });
