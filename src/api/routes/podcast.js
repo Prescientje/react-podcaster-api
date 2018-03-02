@@ -13,10 +13,14 @@ router.use(bodyParser.urlencoded({
 
 // Availible via the base_url/podcast route
 router.route('/:id')
-    .get(PodcastController.getPodcastById);
+    .get(PodcastController.getPodcastById)
+    .put(auth, RouterService.canUpdate, PodcastController.updatePodcastInformation);
 
 router.route('')
-    .post(auth, RouterService.canPost, PodcastController.createPodcast)
+    .post(auth, RouterService.canPost, PodcastController.createPodcast);
+
+router.route('/:id/upload')
+    .post(auth, RouterService.canUpdate, PodcastController.storeFile);
 
 
 export default router;

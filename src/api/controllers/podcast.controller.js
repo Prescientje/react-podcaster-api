@@ -44,6 +44,14 @@ const PodcastController = {
                 });
             }
         });
+    },
+    updatePodcastInformation: (req, res) => {
+        const { id } = req.params;
+        PodcastService.updatePodcastInformation(id, ...req.body).then((podcast) => {
+            Response.json(res, 200, podcast);
+        }).catch((err) => {
+            Response.error(res, 404, err);
+        });
     }
 };
 

@@ -10,6 +10,14 @@ const RouterService = {
         } else {
             Response.error(res, 401, `Unable to create this podcast under this username: ${uploader})`);
         }
+    },
+    canUpdate: (req, res, next) => {
+        const { payload, params: { id } } = req;
+        AuthService.canUpdate(payload, id)
+            .then(() => next())
+            .catch((error) => {
+                Response.error(res, 401, error);
+            });
     }
 };
 
