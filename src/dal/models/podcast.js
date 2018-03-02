@@ -7,7 +7,8 @@ const podcastSchema = new mongoose.Schema({
     },
     description: {
         type: String,
-        required: true
+        required: true,
+        default: ''
     },
     dateUploaded: {
         type: Date,
@@ -17,6 +18,9 @@ const podcastSchema = new mongoose.Schema({
     uploader: {
         type: String,
         required: true
+    },
+    uploadLocation: {
+        type: String
     }
 });
 

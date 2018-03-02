@@ -6,14 +6,30 @@ const PodcastController = {
         PodcastService.getAllPodcasts().then((podcasts) => {
             Response.json(res, 200, podcasts);
         }).catch((err) => {
-            console.log(err);
             Response.error(res, 404, err);
         });
     },
     getPodcastById: (req, res) => {
         const { id } = req.params;
-        const podcast = PodcastService.getById(id);
-        Response.json(res, 200, podcast);
+        PodcastService.getById(id).then((podcast) => {
+            Response.json(res, 200, podcast);
+        }).catch((err) => {
+            Response.error(res, 404, err);
+        });
+    },
+    createPodcast: (req, res) => {
+        const {
+            title, description, uploader, uploadLocation
+        } = req.body;
+        if (!title || !uploader || !uploadLocation) {
+            Response.error(res, 400, 'Title, Uploader and UploadLocation are required');
+        } else {
+            PodcastService.createPodcast(title, description, uploader, uploadLocation).then((podcast) => {
+                Response.json(res, 200, podcast);
+            }).catch((err) => {
+                Response.error(res, 404, err);
+            });
+        }
     }
 };
 

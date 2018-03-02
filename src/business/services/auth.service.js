@@ -36,7 +36,17 @@ const AuthService = {
         }).catch((err) => {
             reject(new Error(`An error has occcured: ${err}`));
         });
-    })
+    }),
+    checkIfUserExists: username => new Promise((resolve, reject) => {
+        UserRepository.get({ username }).then((auser) => {
+            if (auser) {
+                resolve(auser);
+            } else {
+                reject(new Error('User does not exist'));
+            }
+        }).catch(reject);
+    }),
+    canAccess: (payload, username) => payload.username === username
 };
 
 export default AuthService;

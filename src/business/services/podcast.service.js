@@ -1,12 +1,18 @@
 import PodcastRepository from '../../dal/repositories/podcast.repository';
+import AuthService from './auth.service';
 
 const PodcastService = {
-    getAllPodcasts: () => new Promise((resolve, reject) => {
-        PodcastRepository.getAll().then((podcasts) => {
-            resolve(podcasts);
+    getAllPodcasts: () => PodcastRepository.getAll(),
+    getById: id => PodcastRepository.get({ _id: id }),
+    createPodcast: (title, description = '', uploader, uploadLocation) => new Promise((resolve, reject) => {
+        AuthService.checkIfUserExists(uploader).then(() => {
+            PodcastRepository.createPodcast({
+                title, description, uploader, uploadLocation
+            }).then((podcast) => {
+                resolve(podcast);
+            }).catch(reject);
         }).catch(reject);
-    }),
-    getById: id => `Podcast ${id}`
+    })
 };
 
 export default PodcastService;
