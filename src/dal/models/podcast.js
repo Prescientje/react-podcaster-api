@@ -7,8 +7,7 @@ const podcastSchema = new mongoose.Schema({
     },
     description: {
         type: String,
-        required: true,
-        default: ''
+        required: true
     },
     dateUploaded: {
         type: Date,
