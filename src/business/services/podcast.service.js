@@ -6,7 +6,11 @@ const PodcastService = {
             resolve(podcasts);
         }).catch(reject);
     }),
-    getById: id => `Podcast ${id}`
+    getById: id => () => new Promise((resolve, reject) => {
+        PodcastRepository.getById(id).then((podcast) => {
+            resolve(podcast);
+        }).catch(reject);
+    })
 };
 
 export default PodcastService;
