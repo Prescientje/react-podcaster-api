@@ -1,4 +1,7 @@
+// db = podcast
+// collection = podcasts
 use podcast
+
 
 db.podcasts.insertOne( {title: "Podcast1", description: "The first podcast", dateUploaded: Date.now(), uploader: "jedwards" });
 db.podcasts.insertOne( {title: "Podcast2", description: "The second podcast", dateUploaded: Date.now(), uploader: "jedwards" });
