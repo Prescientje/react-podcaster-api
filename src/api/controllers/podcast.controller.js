@@ -1,6 +1,6 @@
 import PodcastService from '../../business/services/podcast.service';
 import Response from './config/response';
-import FileService, { upload } from '../../business/services/file.service';
+import { upload } from '../../business/services/file.service';
 
 const PodcastController = {
     getAllPodcasts: (req, res) => {
@@ -35,9 +35,9 @@ const PodcastController = {
     storeFile: (req, res) => {
         upload.single('podcast')(req, res, (fileError) => {
             if (fileError) {
-                Response.error(res, 400, 'The file uploaded was larger than 5mb');
+                Response.error(res, 400, 'The file uploaded was larger than 50mb');
             } else {
-                FileService.storeFile(req.params.id, req.file).then((podcastLocation) => {
+                PodcastService.addPodcast(req.params.id, req.file).then((podcastLocation) => {
                     Response.json(res, 200, podcastLocation);
                 }).catch((err) => {
                     Response.error(res, 404, err);
@@ -47,7 +47,7 @@ const PodcastController = {
     },
     updatePodcastInformation: (req, res) => {
         const { id } = req.params;
-        PodcastService.updatePodcastInformation(id, ...req.body).then((podcast) => {
+        PodcastService.updatePodcastInformation(id, req.body).then((podcast) => {
             Response.json(res, 200, podcast);
         }).catch((err) => {
             Response.error(res, 404, err);

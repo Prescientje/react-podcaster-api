@@ -14,8 +14,8 @@ const PodcastService = {
             }).catch(reject);
         }).catch(reject);
     }),
-    updatePodcastInformation: (id, ...podcastInfo) => new Promise((resolve, reject) => {
-        PodcastRepository.update(id, { ...podcastInfo }).then((podcast) => {
+    updatePodcastInformation: (id, podcastInfo) => new Promise((resolve, reject) => {
+        PodcastRepository.updatePodcastInformation(id, podcastInfo).then((podcast) => {
             resolve(podcast);
         }).catch(reject);
     }),
@@ -25,8 +25,10 @@ const PodcastService = {
                 if (file) {
                     const path = `podcasts/podcast_${apodcast._id}`;
                     FileService.addFile(file, path)
-                        .then(result =>
-                            PodcastService.updatePodcastInformation(id, result))
+                        .then((result) => {
+                            const updatedInfo = { uploadLocation: result.url };
+                            return PodcastService.updatePodcastInformation(id, updatedInfo);
+                        })
                         .then((podcast) => {
                             resolve(podcast);
                         }).catch(reject);

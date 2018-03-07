@@ -6,7 +6,7 @@ import path from 'path';
 
 import AWSService from './aws.service';
 
-const MAX_SIZE = 5000000;
+const MAX_SIZE = 50000000;
 const NUMBER_OF_FILES = 1;
 
 const storage = multer.diskStorage({
@@ -39,7 +39,7 @@ const FileService = {
             const file = fs.readFileSync(filepath);
             const extension = mime.getExtension(picture.mimetype);
             const mimeType = picture.mimetype;
-            
+
             fs.unlinkSync(filepath);
             AWSService.postFile(`${serverPath}.${extension}`, file, mimeType)
                 .then((result) => {

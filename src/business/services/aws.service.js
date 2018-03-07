@@ -1,6 +1,6 @@
 import AWS from 'aws-sdk';
 
-export const BUCKET = 'podcastr';
+export const BUCKET = 'podcastr-storage';
 export const REGION = 'us-east-1';
 export const KEY_START = 'uploads/';
 
