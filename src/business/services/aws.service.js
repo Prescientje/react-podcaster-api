@@ -1,12 +1,14 @@
 import AWS from 'aws-sdk';
 
-export const BUCKET = 'podcastr-storage';
-export const REGION = 'us-east-1';
+export const BUCKET = 'podcastr-storage1';
+export const REGION = 'us-east-2';
 export const KEY_START = 'uploads/';
 
 const config = new AWS.Config({
-    accessKeyId: process.env.AWS_ACCESS_KEY,
-    secretAccessKey: process.env.AWS_SECRET_KEY,
+    credentials: {
+        accessKeyId: process.env.AWS_ACCESS_KEY,
+        secretAccessKey: process.env.AWS_SECRET_KEY
+    },
     region: REGION
 });
 
@@ -31,7 +33,7 @@ const AWSService = {
                     reject(new Error(`Error when posting image: ${err}`));
                 } else {
                     resolve({
-                        url: `https://s3.amazonaws.com/${BUCKET}/${key}`,
+                        url: `https://s3.us-east-2.amazonaws.com/${BUCKET}/${key}`,
                         data
                     });
                 }

@@ -60,7 +60,7 @@ const AuthService = {
         }).catch(() => {
             reject(new Error('Podcast not found'));
         });
-    }),
+    })
 };
 
 export default AuthService;
