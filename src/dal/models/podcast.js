@@ -17,6 +17,10 @@ const podcastSchema = new mongoose.Schema({
     uploader: {
         type: String,
         required: true
+    },
+    uploadLocation: {
+        type: String,
+        default: ''
     }
 });
 

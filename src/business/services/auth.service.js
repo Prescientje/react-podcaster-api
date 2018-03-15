@@ -1,4 +1,5 @@
 import UserRepository from '../../dal/repositories/user.repository';
+import PodcastRepository from '../../dal/repositories/podcast.repository';
 
 const AuthService = {
     login: (username, password) => new Promise((resolve, reject) => {
@@ -35,6 +36,29 @@ const AuthService = {
             }
         }).catch((err) => {
             reject(new Error(`An error has occcured: ${err}`));
+        });
+    }),
+    checkIfUserExists: username => new Promise((resolve, reject) => {
+        UserRepository.get({ username }).then((auser) => {
+            if (auser) {
+                resolve(auser);
+            } else {
+                reject(new Error('User does not exist'));
+            }
+        }).catch(reject);
+    }),
+    canAccess: (payload, username) => payload.username === username,
+    canUpdate: (payload, id) => new Promise((resolve, reject) => {
+        PodcastRepository.get({
+            _id: id
+        }).then((podcast) => {
+            if (payload.username === podcast.uploader) {
+                resolve();
+            } else {
+                reject(new Error('Unable to update this podcast'));
+            }
+        }).catch(() => {
+            reject(new Error('Podcast not found'));
         });
     })
 };

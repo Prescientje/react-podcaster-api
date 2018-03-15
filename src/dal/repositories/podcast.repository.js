@@ -1,8 +1,14 @@
 import mongoose from 'mongoose';
 
 const PodcastRepository = {
-    get: query => mongoose.model('Podcast').findOne(query),
-    getAll: () => mongoose.model('Podcast').find()
+    get: (query, projection = {}) => mongoose.model('Podcast').findOne(query, projection),
+    getAll: () => mongoose.model('Podcast').find(),
+    createPodcast: podcast => mongoose.model('Podcast').create(podcast),
+    updatePodcastInformation: (id, podcastInfo) => mongoose.model('Podcast').findByIdAndUpdate(
+        id,
+        { $set: { ...podcastInfo } },
+        { new: true }
+    )
 };
 
 export default PodcastRepository;
