@@ -42,6 +42,29 @@ const AWSService = {
             console.error('Error when posting image (catch)', e);
             reject(new Error(`Error when posting image (catch): ${e}`));
         }
+    }),
+    deleteFile: url => new Promise((resolve, reject) => {
+        try {
+            const key = KEY_START + url.split('%2F')[1];
+            console.log(key);
+            const params = {
+                Bucket: BUCKET,
+                Delete: {
+                    Objects: [{
+                        Key: key
+                    }]
+                }
+            };
+            S3.deleteObjects(params, (err, data) => {
+                if (err) {
+                    reject(new Error(`Error while deleting file: ${err}`));
+                } else {
+                    resolve(data);
+                }
+            });
+        } catch (e) {
+            reject(new Error(`Error while deleting file: ${e}`));
+        }
     })
 };
 

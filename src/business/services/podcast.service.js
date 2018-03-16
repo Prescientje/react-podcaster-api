@@ -23,15 +23,16 @@ const PodcastService = {
         PodcastService.getById(id).then((apodcast) => {
             if (apodcast) {
                 if (file) {
-                    const path = `podcasts/podcast_${apodcast._id}`;
-                    FileService.addFile(file, path)
-                        .then((result) => {
-                            const updatedInfo = { uploadLocation: result.url };
-                            return PodcastService.updatePodcastInformation(id, updatedInfo);
-                        })
-                        .then((podcast) => {
-                            resolve(podcast);
-                        }).catch(reject);
+                    if (apodcast.uploadLocation) {
+                        FileService.deleteFile(apodcast.uploadLocation)
+                            .then(() => PodcastService.storeFile(file, apodcast, id))
+                            .then(resolve)
+                            .catch(reject);
+                    } else {
+                        PodcastService.storeFile(file, apodcast, id)
+                            .then(resolve)
+                            .catch(reject);
+                    }
                 } else {
                     resolve();
                 }
@@ -39,6 +40,16 @@ const PodcastService = {
                 reject(new Error('Podcast does not exist'));
             }
         });
+    }),
+    storeFile: (file, apodcast, id) => new Promise((resolve, reject) => {
+        const path = `podcasts/podcast_${apodcast._id}`;
+        FileService.addFile(file, path)
+            .then((result) => {
+                const updatedInfo = { uploadLocation: result.url };
+                return PodcastService.updatePodcastInformation(id, updatedInfo);
+            })
+            .then(resolve)
+            .catch(reject);
     })
 };
 
