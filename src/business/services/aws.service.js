@@ -26,10 +26,9 @@ const AWSService = {
                 ACL: 'public-read',
                 ContentType: mimeType
             };
-            console.log('AWS', BUCKET);
+            console.log('Connected to AWS S3');
             S3.putObject(params, (err, data) => {
                 if (err) {
-                    console.error('Error when posting image', err);
                     reject(new Error(`Error when posting image: ${err}`));
                 } else {
                     resolve({
@@ -46,7 +45,6 @@ const AWSService = {
     deleteFile: url => new Promise((resolve, reject) => {
         try {
             const key = KEY_START + url.split('%2F')[1];
-            console.log(key);
             const params = {
                 Bucket: BUCKET,
                 Delete: {
